@@ -10,13 +10,11 @@ function make_li(message) {
 
 function go() {
     setInterval(function() {
-        console.log('polling...')
         $.getJSON($SCRIPT_ROOT + 'poll', {
             topic_key: $('#topic_key').val(),
             offset: $('.message').size()
         }, function(data) {
             $.each(data.messages, function(index, message) {
-                console.log(message)
                 $('#message_list').prepend(make_li(message))
             })
         });

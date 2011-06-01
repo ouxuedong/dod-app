@@ -18,7 +18,7 @@ class User(Base):
 
 
 class Topic(Base):
-    title = db.StringProperty()
+    title = db.StringProperty(multiline=True)
     author = db.ReferenceProperty(reference_class=User)
     parent_topic = db.SelfReferenceProperty()
     child_topics = db.ListProperty(item_type=db.Key)

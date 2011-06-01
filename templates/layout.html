@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="description" content="Read and share summaries."> 
-        <title>GAT</title>
+        <title>DOD</title>
         <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/base.css') }}">
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='js/base.js') }}"></script>
@@ -24,15 +24,16 @@
         </div>
         <div>
             {% block header %}
-            <h1><a href="{{ url_for('index') }}">GAT(Prototype)</a> - {{ g.user.email }} - <a href="{{ url_for('logout') }}">Log Out</a></h1>
+            <h1><a href="{{ url_for('index') }}">DOD(Prototype)</a> - {{ g.user.email }} - <a href="{{ url_for('logout') }}">Log Out</a></h1>
             {% endblock %}
         </div>
         <div>
         {% block body %}{% endblock %}
         </div>
+        <hr/>
         <div>
             {% block footer %}
-            © 2011 GAT
+            © 2011 DOD
             {% endblock %}
         </div>
     </body>

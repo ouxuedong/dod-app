@@ -31,7 +31,7 @@
 </form>
 <form action="{{ url_for('post') }}" method='POST'>
     <input type='hidden' name='topic_key' value="{{ topic.key() }}"/>
-    <textarea id='post' name='content' placeholder="Please focus on topic '{{ topic.title }}'"></textarea>
+    <textarea style='width:300px;height:80px;'id='post' name='content' placeholder="Please focus on topic '{{ topic.title }}'"></textarea>
     <input type='submit' value='Post' />
 </form>
 <ul id='message_list' class='list'>
@@ -39,7 +39,7 @@
     {% for message in messages %}
     <li class='message'>
         <div>{{ message.content }}</div>
-        <div>
+        <div style='font-size:80%;color:#aaa'>
             <form action="{{ url_for('create_topic') }}" method='post'>
                 {{ message.author.email }} - {{ message.created_at|pretty_date }}
                 <input type='hidden' name='title' value="On - {{ message.content }}"/>
