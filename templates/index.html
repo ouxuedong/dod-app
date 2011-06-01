@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% block body -%}
+{% if g.user %}
+<h2>Create Topic</h2>
+<form action="{{ url_for('create_topic') }}" method='post'>
+    {% if parent_topic_key %}
+    <input type='hidden' name='parent_topic_key' value="{{ parent_topic_key }}" />
+    <a href="{{ url_for('discussion', topic_key=parent_topic_key) }}">Go Back</a>
+    {% endif %}
+    <table>
+        <tr>
+            <td><label for='title'>Title</label></td>
+            <td><input type='text' id='title' name='title' value="{{ title|default('', True) }}" autofocus="True"/></td>
+        </tr>
+        <tr>
+            <td><label for='start'>Duration</label></td>
+            <td><input type='text' id='start' name='start' value="{{ start|default('', True) }}"/> to 
+                <input type='text' id='end' name='end' value="{{ end|default('', True) }}"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type='submit' value='Create Topic'/></td>
+        </tr>
+    </table>
+</form>
+<h2>My Topics</h2>
+<ul>
+    {% if my_topics %}
+    {% for my_topic in my_topics %}
+    <li><a href="{{ url_for('discussion', topic_key=my_topic.key() )}}">{{ my_topic.title }}</a> | {{ my_topic.created_at|pretty_date }}</li>
+    {% endfor %}
+    {% endif %}
+</ul>
+{% else %}
+<h2>Log In</h2>
+<form action="{{ url_for('login') }}" method='post'>
+    <table>
+        <tr>
+            <td><label for='email'>Email</label></td>
+            <td><input type='text' id='email' name='email' value="{{ email|default('', True) }}" autofocus="True"/></td>
+        </tr>
+        <tr>
+            <td><label for='password'>Password</label></td>
+            <td><input type='password' id='password' name='password' value="{{ password|default('', True) }}" /></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type='submit' value='Log In'/></td>
+        </tr>
+    </table>
+</form>
+<h2>Sign Up</h2>
+<form action="{{ url_for('signup') }}" method='post'>
+    <table>
+        <tr>
+            <td><label for='new_email'>Email</label></td>
+            <td><input type='text' id='new_email' name='new_email' value="{{ new_email|default('', True) }}"/></td>
+        </tr>
+        <tr>
+            <td><label for='new_password'>Password</label></td>
+            <td><input type='password' id='new_password' name='new_password' value="{{ new_password|default('', True) }}" /></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type='submit' value='Sign Up'/></td>
+        </tr>
+    </table>
+</form>
+{% endif %}
+{%- endblock %}

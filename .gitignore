@@ -1,0 +1,4 @@
+*.py[co]
+lib
+Thumbs.db
+index.yaml

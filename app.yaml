@@ -1,0 +1,46 @@
+application: gat-app
+version: 1
+runtime: python
+api_version: 1
+
+# extends default skip_files value.
+# add
+# - skip bulkloader.yaml
+# - skip tests/*
+# - skip runtests.py
+skip_files:
+- ^(.*/)?app\.yaml
+- ^(.*/)?app\.yml
+- ^(.*/)?index\.yaml
+- ^(.*/)?index\.yml
+- ^(.*/)?#.*#
+- ^(.*/)?.*~
+- ^(.*/)?.*\.py[co]
+- ^(.*/)?.*/RCS/.*
+- ^(.*/)?\..*
+- ^(.*/)?bulkloader\.y(a)?ml
+- tests/.*
+- runtests\.py
+
+builtins:
+- appstats: off
+- remote_api: on
+- datastore_admin: on
+- deferred: on
+
+admin_console:
+  pages:
+  - name: Appstats
+    url: /_ah/stats/
+
+handlers:
+
+- url: /favicon.ico
+  static_files: static/img/favicon.ico
+  upload: static/img/favicon.ico
+
+- url: /static
+  static_dir: static
+
+- url: /.*
+  script: boot.py

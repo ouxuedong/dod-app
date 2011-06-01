@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block body -%}
+{% if topic.parent_topic %}
+<div>
+    <span>Parent Topic: </span><a href="{{ url_for('discussion', topic_key=topic.parent_topic.key()) }}">{{ topic.parent_topic.title }}</a>
+</div>
+{% endif %}
+{% if child_topics %}
+<div>
+    <span>Child Topics: </span>
+    {% for child_topic in child_topics %}
+        <a href="{{ url_for('discussion', topic_key=child_topic.key()) }}">{{ child_topic.title }}</a> |
+    {% endfor %}
+</div>
+{% endif %}
+<hr/>
+<form action="{{ url_for('change_topic_name')}}" method='post'>
+<h2>Topic: 
+        <input type='text' name='title' value="{{ topic.title }}" />
+        <input type='hidden' name='topic_key' value="{{ topic.key() }}"/>
+        <input type='submit' value='Save Topic Name' />
+</h2>
+</form>
+<form action="{{ url_for('post') }}" method='POST'>
+    <input type='hidden' name='topic_key' value="{{ topic.key() }}"/>
+    <textarea id='post' name='content' placeholder="Please focus on topic '{{ topic.title }}'"></textarea>
+    <input type='submit' value='Post' />
+</form>
+<ul class='list'>
+    {% if messages %}
+    {% for message in messages %}
+    <li class='message'>
+        <div>{{ message.content }}</div>
+        <div>
+            <form action="{{ url_for('create_topic') }}" method='post'>
+                {{ message.author.email }} - {{ message.created_at|pretty_date }}
+                <input type='hidden' name='title' value="On - {{ message.content }}"/>
+                <input type='hidden' name='parent_topic_key' value="{{ message.topic.key() }}" />
+                <input type='submit' value='Branch' />
+            </form>
+        </div>
+    </li>
+    {% endfor %}
+    {% endif %}
+</ul>
+{%- endblock %}

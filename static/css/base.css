@@ -1,0 +1,22 @@
+
+/* commons */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td { margin: 0; padding: 0; border: 0; font-size: 100%; vertical-align: baseline; background: transparent; font-family:Arial,Liberation Sans,DejaVu Sans,sans-serif}
+a {text-decoration: none}
+a:hover {text-decoration: underline}
+ul {list-style: none}
+
+.wrapper {margin:0 auto; width: 960px; position:relative; background-color: white; padding: 0 10px}
+.lfloat {float:left}
+.rfloat {float:right}
+.tcenter {text-align: center}
+.message {color:black}
+.b130 {font-size:130%;font-weight:bold}
+.meta {color:#666}
+.cannot_vote {cursor:help;color:#ccc;font-size:200%}
+.search_tip {color:#666;font-size:100%;font-style:italic}
+
+/* flash */
+#flash_wrapper {height:30px; text-align:center}
+#flash_wrapper #flash {display: inline-block;padding: 5px 10px;background-color: #fff1a8;font-size: 90%;font-weight: bold;text-align: center}
+#flash_wrapper #flash a {text-decoration:underline}
+#flash_wrapper #flash #close {padding:0 5px;margin-left:20px;}
