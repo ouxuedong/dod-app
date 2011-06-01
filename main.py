@@ -5,7 +5,7 @@ from datetime import datetime
 from functools import wraps
 
 from flask import Flask, request, session, g, redirect, url_for, abort
-from flask import render_template, flash, Markup
+from flask import render_template, flash, Markup, jsonify
 app = Flask(__name__)
 app.config.from_object('settings')
 
@@ -45,6 +45,19 @@ def index():
         my_main_topics = Topic.all().filter('author', g.user).filter('parent_topic', None).order('-created_at').fetch(limit=50)
     return render_template('index.html', my_topics=my_topics)
 
+
+@app.route('/poll')
+@login_required
+def poll():
+    messages = []
+    topic_key = request.args.get('topic_key')
+    if topic_key:
+        topic = Topic.get(topic_key)
+        if topic:
+            offset = int(request.args.get('offset'))
+            l = Message.all().filter('topic', topic).order('created_at').fetch(limit=100, offset=offset)
+            messages = [{'content': m.content, 'email': m.author.email, 'created_at': pretty_date(m.created_at), 'topic_key': str(m.topic.key())} for m in l]
+    return jsonify(messages=messages)
 
 @app.route('/post', methods=['POST'])
 @login_required

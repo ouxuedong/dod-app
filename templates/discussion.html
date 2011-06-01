@@ -1,5 +1,12 @@
 {% extends "layout.html" %}
 
+{% block js %}
+<script type=text/javascript>
+    $SCRIPT_ROOT = {{ request.url_root|tojson|safe }};
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/poll.js') }}"></script>
+{% endblock %}
+
 {% block body -%}
 {% if topic.parent_topic %}
 <div>
@@ -18,7 +25,7 @@
 <form action="{{ url_for('change_topic_name')}}" method='post'>
 <h2>Topic: 
         <input type='text' name='title' value="{{ topic.title }}" />
-        <input type='hidden' name='topic_key' value="{{ topic.key() }}"/>
+        <input type='hidden' id='topic_key' name='topic_key' value="{{ topic.key() }}"/>
         <input type='submit' value='Save Topic Name' />
 </h2>
 </form>
@@ -27,7 +34,7 @@
     <textarea id='post' name='content' placeholder="Please focus on topic '{{ topic.title }}'"></textarea>
     <input type='submit' value='Post' />
 </form>
-<ul class='list'>
+<ul id='message_list' class='list'>
     {% if messages %}
     {% for message in messages %}
     <li class='message'>

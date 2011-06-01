@@ -17,15 +17,8 @@ class User(Base):
     password = db.StringProperty()
 
 
-class Milestone(Base):
-    title = db.StringProperty()
-    content = db.StringProperty()
-    at = db.DateTimeProperty()
-
-
 class Topic(Base):
     title = db.StringProperty()
-    #content = db.StringProperty()
     author = db.ReferenceProperty(reference_class=User)
     parent_topic = db.SelfReferenceProperty()
     child_topics = db.ListProperty(item_type=db.Key)
@@ -34,6 +27,6 @@ class Topic(Base):
 
 
 class Message(Base):
-    content = db.StringProperty()
+    content = db.StringProperty(multiline=True)
     author = db.ReferenceProperty(reference_class=User)
     topic = db.ReferenceProperty(reference_class=Topic)
